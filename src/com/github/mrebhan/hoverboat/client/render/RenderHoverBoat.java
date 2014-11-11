@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.RotationHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -37,8 +38,10 @@ public class RenderHoverBoat extends Render
     {
         GL11.glPushMatrix();
         GL11.glColor4d(1, 223D / 225D, 0, 1);
-        GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
+        GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_ + MathHelper.sin(((float) p_76986_1_.ticksExisted)) / 50, (float)p_76986_6_);
         GL11.glRotatef(180.0F - p_76986_8_, 0.0F, 1.0F, 0.0F);
+        double rot =  (p_76986_1_.rotationYaw - p_76986_1_.prevRotationYaw) * 5;
+        GL11.glRotated(rot < 0 ? -Math.min(-rot, 20) : Math.min(rot, 20), 1, 0, 0);
         float f2 = (float)p_76986_1_.getTimeSinceHit() - p_76986_9_;
         float f3 = p_76986_1_.getDamageTaken() - p_76986_9_;
 

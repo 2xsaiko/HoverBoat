@@ -25,7 +25,9 @@ public class EntityHoverBoat extends Entity {
 
 	/** true if no player in boat */
 	private boolean isBoatEmpty;
-	private double speedMultiplier;
+//	private final double speedMultiplier;
+	private double boatSpeed;
+	private static final double maxBoatSpeed = 0.5;
 	private int boatPosRotationIncrements;
 	private double boatX;
 	private double boatY;
@@ -44,7 +46,6 @@ public class EntityHoverBoat extends Entity {
 	{
 		super(p_i1704_1_);
 		this.isBoatEmpty = true;
-		this.speedMultiplier = 0.07D;
 		this.preventEntitySpawning = true;
 		this.setSize(1.5F, 0.6F);
 		this.yOffset = this.height / 2.0F;
@@ -108,12 +109,12 @@ public class EntityHoverBoat extends Entity {
 		//        int k = MathHelper.floor_double(this.posZ);
 		//
 		//        if (p_70064_3_)
-			//        {
-			//            if (this.fallDistance > 3.0F)
-				//            {
-				//                this.fall(this.fallDistance);
-				//
-				//                if (!this.worldObj.isRemote && !this.isDead)
+		//        {
+		//            if (this.fallDistance > 3.0F)
+		//            {
+		//                this.fall(this.fallDistance);
+		//
+		//                if (!this.worldObj.isRemote && !this.isDead)
 		//                {
 		//                    this.setDead();
 		//                    int l;
@@ -280,6 +281,9 @@ public class EntityHoverBoat extends Entity {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
+		if (riddenByEntity != null) {
+			this.rotationYaw = riddenByEntity.rotationYaw - 90;
+		}
 		byte b0 = 5;
 		double d0 = 0.0D;
 
@@ -287,7 +291,7 @@ public class EntityHoverBoat extends Entity {
 		{
 			double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(i + 0) / (double)b0 - 0.125D;
 			double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(i + 1) / (double)b0 - 0.125D;
-//			AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(this.boundingBox.minX, d1, this.boundingBox.minZ, this.boundingBox.maxX, d3, this.boundingBox.maxZ);
+			//			AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(this.boundingBox.minX, d1, this.boundingBox.minZ, this.boundingBox.maxX, d3, this.boundingBox.maxZ);
 			d0 += 1.0D / (double)b0;
 		}
 
@@ -295,6 +299,12 @@ public class EntityHoverBoat extends Entity {
 		double d2;
 		double d4;
 		int j;
+		
+		double veloc = -.2;
+//		this.worldObj.spawnParticle("dripWater", this.posX, this.posY - .5, this.posZ, 0, veloc, 0);
+		this.worldObj.spawnParticle("largesmoke", this.posX, this.posY - .5, this.posZ, 0, veloc, 0);
+		this.worldObj.spawnParticle("explode", this.posX, this.posY - .5, this.posZ, 0, veloc, 0);
+		this.worldObj.spawnParticle("flame", this.posX, this.posY - .5, this.posZ, 0, veloc, 0);		
 
 		if (d10 > 0.26249999999999996D)
 		{
@@ -312,13 +322,13 @@ public class EntityHoverBoat extends Entity {
 				{
 					d8 = this.posX - d2 * d5 * 0.8D + d4 * d6;
 					d9 = this.posZ - d4 * d5 * 0.8D - d2 * d6;
-					this.worldObj.spawnParticle("smoke", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
+					//					this.worldObj.spawnParticle("smoke", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
 				}
 				else
 				{
 					d8 = this.posX + d2 + d4 * d5 * 0.7D;
 					d9 = this.posZ + d4 - d2 * d5 * 0.7D;
-					this.worldObj.spawnParticle("smoke", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
+					//					this.worldObj.spawnParticle("smoke", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
 				}
 			}
 		}
@@ -328,6 +338,7 @@ public class EntityHoverBoat extends Entity {
 
 		if (this.worldObj.isRemote && this.isBoatEmpty)
 		{
+			
 			if (this.boatPosRotationIncrements > 0)
 			{
 				d2 = this.posX + (this.boatX - this.posX) / (double)this.boatPosRotationIncrements;
@@ -337,11 +348,11 @@ public class EntityHoverBoat extends Entity {
 				this.rotationYaw = (float)((double)this.rotationYaw + d12 / (double)this.boatPosRotationIncrements);
 				this.rotationPitch = (float)((double)this.rotationPitch + (this.boatPitch - (double)this.rotationPitch) / (double)this.boatPosRotationIncrements);
 				--this.boatPosRotationIncrements;
-//				this.setPosition(d2, d4, d11);
+				//				this.setPosition(d2, d4, d11);
 				this.setPosition(d2, this.posY, d11);
 				this.setRotation(this.rotationYaw, this.rotationPitch);
-//				this.motionX = this.motionZ = this.velocityX = this.velocityZ = 0;
-//				this.velocityChanged = true;
+				//				this.motionX = this.motionZ = this.velocityX = this.velocityZ = 0;
+				//				this.velocityChanged = true;
 			}
 			else
 			{
@@ -350,25 +361,25 @@ public class EntityHoverBoat extends Entity {
 				d11 = this.posZ + this.motionZ;
 				this.setPosition(d2, this.posY, d11);
 
-				if (this.onGround)
-				{
-					this.motionX *= 0.5D;
-					this.motionY *= 0.5D;
-					this.motionZ *= 0.5D;
-				}
+//				if (this.onGround)
+//				{
+//					this.motionX *= 0.5D;
+//					this.motionY *= 0.5D;
+//					this.motionZ *= 0.5D;
+//				}
 
 				this.motionX *= 0.9900000095367432D;
 				this.motionY *= 0.949999988079071D;
 				this.motionZ *= 0.9900000095367432D;
 			}
-			this.moveEntity(0, getAscent(), 0);
+			this.posY += this.getAscent();
 		}
 		else
 		{
 			if (d0 < 1.0D)
 			{
 				d2 = d0 * 2.0D - 1.0D;
-				this.motionY += 0.03999999910593033D * d2 + getAscent();
+				this.motionY += 0.03999999910593033D * d2;// + getAscent();
 			}
 			else
 			{
@@ -377,15 +388,26 @@ public class EntityHoverBoat extends Entity {
 					this.motionY /= 2.0D;
 				}
 
-//				this.motionY += 0.007000000216066837D;
+				//				this.motionY += 0.007000000216066837D;
 			}
 
 			if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase)
 			{
 				EntityLivingBase entitylivingbase = (EntityLivingBase)this.riddenByEntity;
 				float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-				this.motionX += -Math.sin((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * 0.05000000074505806D;
-				this.motionZ += Math.cos((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * 0.05000000074505806D;
+				this.boatSpeed += (double)entitylivingbase.moveForward * 0.05000000074505806D;
+				this.boatSpeed *= 0.7;
+				if (boatSpeed > maxBoatSpeed)
+					boatSpeed = maxBoatSpeed;
+				this.motionX += -Math.sin((double)(f * (float)Math.PI / 180.0F)) * boatSpeed;
+				this.motionZ += Math.cos((double)(f * (float)Math.PI / 180.0F)) * boatSpeed;
+				System.out.println(boatSpeed);
+				if (boatSpeed < 0.01) {
+					this.motionX *= 0.05;
+					this.motionZ *= 0.05;
+				}
+//				this.motionX += -Math.sin((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * 0.05000000074505806D;
+//				this.motionZ += Math.cos((double)(f * (float)Math.PI / 180.0F)) * this.speedMultiplier * (double)entitylivingbase.moveForward * 0.05000000074505806D;
 			}
 
 			d2 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -399,24 +421,24 @@ public class EntityHoverBoat extends Entity {
 				d2 = maxSpeed;
 			}
 
-			if (d2 > d10 && this.speedMultiplier < 0.35D)
-			{
-				this.speedMultiplier += (0.35D - this.speedMultiplier) / 35.0D;
-
-				if (this.speedMultiplier > 0.35D)
-				{
-					this.speedMultiplier = 0.35D;
-				}
-			}
-			else
-			{
-				this.speedMultiplier -= (this.speedMultiplier - 0.07D) / 35.0D;
-
-				if (this.speedMultiplier < 0.07D)
-				{
-					this.speedMultiplier = 0.07D;
-				}
-			}
+//			if (d2 > d10 && this.speedMultiplier < 0.35D)
+//			{
+//				this.speedMultiplier += (0.35D - this.speedMultiplier) / 35.0D;
+//
+//				if (this.speedMultiplier > 0.35D)
+//				{
+//					this.speedMultiplier = 0.35D;
+//				}
+//			}
+//			else
+//			{
+//				this.speedMultiplier -= (this.speedMultiplier - 0.07D) / 35.0D;
+//
+//				if (this.speedMultiplier < 0.07D)
+//				{
+//					this.speedMultiplier = 0.07D;
+//				}
+//			}
 
 			int l;
 
@@ -443,12 +465,12 @@ public class EntityHoverBoat extends Entity {
 				}
 			}
 
-//			if (this.onGround)
-//			{
-//				this.motionX *= 0.5D;
-//				this.motionY *= 0.5D;
-//				this.motionZ *= 0.5D;
-//			}
+			//			if (this.onGround)
+			//			{
+			//				this.motionX *= 0.5D;
+			//				this.motionY *= 0.5D;
+			//				this.motionZ *= 0.5D;
+			//			}
 
 			this.moveEntity(this.motionX, getAscent(), this.motionZ);
 
@@ -456,12 +478,13 @@ public class EntityHoverBoat extends Entity {
 			{
 				this.motionX = 0;
 				this.motionZ = 0;
+				this.boatSpeed = 0;
 			}
-			else
-			{
-				this.motionX *= 0.9900000095367432D;
-				this.motionZ *= 0.9900000095367432D;
-			}
+//			else
+//			{
+//				this.motionX *= 0.9900000095367432D;
+//				this.motionZ *= 0.9900000095367432D;
+//			}
 
 			this.motionY *= 0.949999988079071D;
 
@@ -487,7 +510,7 @@ public class EntityHoverBoat extends Entity {
 				d7 = -20.0D;
 			}
 
-			this.rotationYaw = (float)((double)this.rotationYaw + d7);
+			//			this.rotationYaw = (float)((double)this.rotationYaw + d7);
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 
 			if (!this.worldObj.isRemote)
@@ -627,16 +650,20 @@ public class EntityHoverBoat extends Entity {
 		Block b = null;
 		int bPY = 0;
 
-		for (int pY = y - checkDist; pY < y + 1; pY++) {
-			Block block = this.worldObj.getBlock(x, pY, z);
-			if (block != null && block != Blocks.air) {
-				b = block;
-				bPY = pY;
+		for (int pY = y - checkDist; pY < y; pY++) {
+			for (int pX = x; pX < x + 2; pX++) {
+				for (int pZ = z; pZ < z + 2; pZ++) {
+					Block block = this.worldObj.getBlock(pX, pY, pZ);
+					if (block != null && block != Blocks.air && pY > bPY) {
+						b = block;
+						bPY = pY;
+					}
+				}
 			}
 		}
 
 		if (b != null) {
-			return y - bPY;
+			return this.posY - bPY;
 		} else {
 			return Double.POSITIVE_INFINITY; 
 		}
@@ -644,24 +671,37 @@ public class EntityHoverBoat extends Entity {
 
 	public double getAscent() {
 		double bpu = this.getDstToBlockUnderneath();
-//		System.out.println(bpu);
-//		System.out.println(this.posY);
-//		System.out.println("Speed: " + getSpeed());
 		if (this.riddenByEntity == null) {
 			double hoverHeight = 1.5;
-			double step = .01;
-			double d = hoverHeight - bpu > 0 ? step : (hoverHeight - bpu < 0 ? -step : 0);
-			return d;
+			double step = .25;
+			if (hoverHeight - bpu > step) {
+				return step;
+			}
+			if (hoverHeight - bpu < -step) {
+				return -step;
+			}
+			return hoverHeight - bpu;
 		} else {
-			double hoverHeight = getSpeed() > 5 ? 4.5 : 2.5;
-			double step = .1;
-			double d = hoverHeight - bpu > 0 ? step : (hoverHeight - bpu < 0 ? -step : 0);
-			return d;
+			double hoverHeight = boatSpeed > .05 ? 4.5 : 2.5;
+			double step = .25;
+			if (hoverHeight - bpu > step) {
+				return step;
+			}
+			if (hoverHeight - bpu < -step) {
+				return -step;
+			}
+			return hoverHeight - bpu;
 		}
 	}
-	
-	public double getSpeed() {
-		return MathHelper.sqrt_double((this.posX - this.lastTickPosX) * (this.posZ - this.lastTickPosZ) * (this.posZ - this.lastTickPosZ));
+
+	private double range(double max, double min, double val) {
+		if (val > max) {
+			return max;
+		}
+		if (val < min) {
+			return min;
+		}
+		return val;
 	}
 
 }
