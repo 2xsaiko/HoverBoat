@@ -1,1 +1,6 @@
 item.ItemHoverBoat.name=Hoverboat
+item.ItemHopperEngine.name=Hopper Engine
+
+key.categories.hoverboat=Hoverboat Controls
+key.hoverboat.ascend=Ascend
+key.hoverboat.descend=Descend

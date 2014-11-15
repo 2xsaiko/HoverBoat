@@ -1,0 +1,6 @@
+item.ItemHoverBoat.name=Hoverboat
+item.ItemHopperEngine.name=Trichtermotor
+
+key.categories.hoverboat=Hoverboat-Steuerung
+key.hoverboat.ascend=Aufwärts
+key.hoverboat.descend=Abwärts
