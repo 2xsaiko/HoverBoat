@@ -24,8 +24,8 @@ public class Registry {
 	}
 	
 	private static void addRecipes() {
-		GameRegistry.addShapedRecipe(new ItemStack(ItemHoverBoat.item), "gcg", "ggg", " e ", 'g', new ItemStack(Blocks.gold_block), 'c', new ItemStack(Blocks.glass), 'e', new ItemStack(ItemHopperEngine.item));
-		GameRegistry.addShapedRecipe(new ItemStack(ItemHopperEngine.item, Integer.MAX_VALUE), "drd", "IiI", "RhR", 'd', stack(Items.diamond), 'r', stack(Items.redstone), 'I', stack(Blocks.iron_block), 'i', stack(Items.iron_ingot), 'R', stack(Blocks.redstone_block), 'h', stack(Blocks.hopper));
+		GameRegistry.addShapedRecipe(new ItemStack(ItemHoverBoat.item), "gcg", "ggg", " e ", 'g', new ItemStack(Items.gold_ingot), 'c', new ItemStack(Blocks.glass), 'e', new ItemStack(ItemHopperEngine.item));
+		GameRegistry.addShapedRecipe(new ItemStack(ItemHopperEngine.item, Integer.MAX_VALUE), "drd", "iii", "RhR", 'd', stack(Items.diamond), 'r', stack(Items.redstone), 'i', stack(Items.iron_ingot), 'R', stack(Blocks.redstone_block), 'h', stack(Blocks.hopper));
 	}
 
 	private static void addEntities() {
