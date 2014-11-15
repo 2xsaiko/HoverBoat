@@ -10,19 +10,20 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 
 public class EventHandlerHoverBoat {
-	@SubscribeEvent
-	public void onRenderTick(TickEvent.RenderTickEvent e) {
-		//		if (e.phase == Phase.END) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.currentScreen == null) {                
-			GuiIngame gig = new GuiIngame(mc);
-			if (mc.thePlayer.ridingEntity != null && mc.thePlayer.ridingEntity instanceof EntityHoverBoat) {
-				EntityHoverBoat hoverBoat = (EntityHoverBoat) mc.thePlayer.ridingEntity;
-				mc.fontRenderer.drawStringWithShadow(((Boolean) hoverBoat.playerascend).toString(), 1, 1, -1);
-				mc.fontRenderer.drawStringWithShadow(((Boolean) hoverBoat.playerdescend).toString(), 1, 10, -1);
-			}
-		}
-	}
+	
+//	@SubscribeEvent
+//	public void onRenderTick(TickEvent.RenderTickEvent e) {
+//		//		if (e.phase == Phase.END) {
+//		Minecraft mc = Minecraft.getMinecraft();
+//		if (mc.currentScreen == null) {                
+//			GuiIngame gig = new GuiIngame(mc);
+//			if (mc.thePlayer.ridingEntity != null && mc.thePlayer.ridingEntity instanceof EntityHoverBoat) {
+//				EntityHoverBoat hoverBoat = (EntityHoverBoat) mc.thePlayer.ridingEntity;
+//				mc.fontRenderer.drawStringWithShadow(((Boolean) hoverBoat.playerascend).toString(), 1, 1, -1);
+//				mc.fontRenderer.drawStringWithShadow(((Boolean) hoverBoat.playerdescend).toString(), 1, 10, -1);
+//			}
+//		}
+//	}
 	
 	@SubscribeEvent
 	public void onKeyPress(KeyInputEvent e) {
