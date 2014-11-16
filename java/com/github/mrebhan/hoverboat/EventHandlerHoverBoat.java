@@ -1,13 +1,8 @@
 package com.github.mrebhan.hoverboat;
 
-import com.github.mrebhan.hoverboat.entity.EntityHoverBoat;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 
 public class EventHandlerHoverBoat {
 	

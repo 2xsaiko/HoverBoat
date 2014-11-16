@@ -1,5 +1,6 @@
 package com.github.mrebhan.hoverboat;
 
+import com.github.mrebhan.core.helper.EntityHelper;
 import com.github.mrebhan.hoverboat.entity.EntityHoverBoat;
 import com.github.mrebhan.hoverboat.item.ItemHopperEngine;
 import com.github.mrebhan.hoverboat.item.ItemHoverBoat;
@@ -29,7 +30,7 @@ public class Registry {
 	}
 
 	private static void addEntities() {
-		HoverBoat.instance.registerEntity(EntityHoverBoat.class, "HoverBoat", true);
+		EntityHelper.registerEntity(EntityHoverBoat.class, "HoverBoat", HoverBoat.instance, false);
 	}
 	
 	private static ItemStack stack(Item i) {

@@ -2,6 +2,7 @@ package com.github.mrebhan.hoverboat;
 
 import java.util.Random;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -15,7 +16,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "hoverboat", name="HoverBoat", version="r0")
+@Mod(modid = "hoverboat", name="HoverBoat", version="r0", dependencies="required-after:CraftCore")
 public class HoverBoat {
 	@Instance(value="hoverboat")
 	public static HoverBoat instance;
@@ -35,20 +36,6 @@ public class HoverBoat {
 		Keybindings.instance();
 		this.wrapper.registerMessage(PacketKeys.Handler.class, PacketKeys.class, 0, Side.CLIENT);
 		this.wrapper.registerMessage(PacketKeys.Handler.class, PacketKeys.class, 0, Side.SERVER);
-	}
-
-	public int registerEntity(Class entityClass, String entityName, boolean generateEgg) {
-		int entityID = EntityRegistry.findGlobalUniqueEntityId();
-		long seed = entityName.hashCode();
-		Random rand = new Random(seed);
-		int primaryColor = rand.nextInt() * 16777215;
-		int secondaryColor = rand.nextInt() * 16777215;
-
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, entityID);
-		EntityRegistry.registerModEntity(entityClass, entityName, entityID, instance, 64, 1, true);
-		if (generateEgg)
-			EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColor, secondaryColor));
-		return entityID;
 	}
 
 }

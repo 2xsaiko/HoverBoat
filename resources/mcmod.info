@@ -1,0 +1,19 @@
+[
+{
+  "modid": "hoverboat",
+  "name": "HoverBoat",
+  "description": "Revives the old hoverboat mod for 1.8.1 beta by ShaRose",
+  "version": "r0",
+  "credits": "ShaRose for original version; created by deFENCE_",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authors": [ "deFENCE" ],
+  "parent": "",
+  "screenshots": [],
+  "dependencies": [
+	 "MinecraftForge",
+	 "CraftCore"
+]
+}
+]
